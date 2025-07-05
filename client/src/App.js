@@ -1,70 +1,70 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const chatEndRef = useRef(null);
+  const [messages, setMessages] = useState([]);
 
-  const sendMessage = async () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const userMsg = { sender: 'user', text: input };
     setMessages(prev => [...prev, userMsg]);
 
     try {
-      const res = await axios.post(''https://weather-chatbot-5sjq.onrender.com/api/chat'
-', {
+      const res = await axios.post('https://weather-chatbot-5sjq.onrender.com/api/chat', {
         message: input,
       });
 
-      const botMsg = { sender: 'bot', text: res.data.response };
-      setMessages(prev => [...prev, botMsg]);
-    } catch (err) {
-      const errorMsg = {
+      const botReply = {
         sender: 'bot',
-        text: '⚠️ Error getting weather data. Please try again.',
+        text: res.data.reply,
       };
-      setMessages(prev => [...prev, errorMsg]);
+
+      setMessages(prev => [...prev, botReply]);
+    } catch (error) {
+      console.error(error);
+      setMessages(prev => [
+        ...prev,
+        { sender: 'bot', text: '⚠️ Error getting weather data. Please try again.' },
+      ]);
     }
 
     setInput('');
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      sendMessage();
+      handleSend();
     }
   };
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
   return (
     <div className="container">
-      <div className="header">🌤️ Weather Chatbot</div>
+      <div className="header">🌦️ Weather Chatbot</div>
 
       <div className="chat-box">
         {messages.map((msg, i) => (
-          <div key={i} className={`message ${msg.sender === 'user' ? 'user-msg' : 'bot-msg'}`}>
+          <div
+            key={i}
+            className={`message ${msg.sender === 'user' ? 'user-msg' : 'bot-msg'}`}
+          >
             {msg.text}
           </div>
         ))}
-        <div ref={chatEndRef} />
       </div>
 
       <div className="input-area">
         <input
           className="input"
           type="text"
-          placeholder="Ask about the weather..."
+          placeholder="Ask about the weather in your city..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleKeyPress}
         />
-        <button className="button" onClick={sendMessage}>
+        <button className="button" onClick={handleSend}>
           Send
         </button>
       </div>
