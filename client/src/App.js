@@ -24,7 +24,7 @@ function App() {
 
       setMessages(prev => [...prev, botReply]);
     } catch (error) {
-      console.error(error);
+      console.error('API error:', error);
       setMessages(prev => [
         ...prev,
         { sender: 'bot', text: '⚠️ Error getting weather data. Please try again.' },
@@ -42,12 +42,12 @@ function App() {
 
   return (
     <div className="container">
-      <div className="header">🌦️ Weather Chatbot</div>
+      <div className="header">🌤️ Weather Chatbot</div>
 
       <div className="chat-box">
-        {messages.map((msg, i) => (
+        {messages.map((msg, index) => (
           <div
-            key={i}
+            key={index}
             className={`message ${msg.sender === 'user' ? 'user-msg' : 'bot-msg'}`}
           >
             {msg.text}
@@ -59,14 +59,12 @@ function App() {
         <input
           className="input"
           type="text"
-          placeholder="Ask about the weather in your city..."
+          placeholder="Ask e.g., 'What's the weather in Delhi?'"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <button className="button" onClick={handleSend}>
-          Send
-        </button>
+        <button className="button" onClick={handleSend}>Send</button>
       </div>
     </div>
   );
