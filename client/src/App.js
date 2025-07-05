@@ -35,9 +35,7 @@ function App() {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSend();
-    }
+    if (e.key === 'Enter') handleSend();
   };
 
   return (
@@ -45,9 +43,9 @@ function App() {
       <div className="header">🌤️ Weather Chatbot</div>
 
       <div className="chat-box">
-        {messages.map((msg, index) => (
+        {messages.map((msg, idx) => (
           <div
-            key={index}
+            key={idx}
             className={`message ${msg.sender === 'user' ? 'user-msg' : 'bot-msg'}`}
           >
             {msg.text}
@@ -57,9 +55,9 @@ function App() {
 
       <div className="input-area">
         <input
-          className="input"
           type="text"
-          placeholder="Ask e.g., 'What's the weather in Delhi?'"
+          className="input"
+          placeholder="Ask about the weather..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyPress}
