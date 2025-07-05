@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #89f7fe, #66a6ff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background: white;
+  width: 100%;
+  max-width: 600px;     /* ⬆️ Increased width */
+  height: 80vh;         /* ⬇️ Reduced height */
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.header {
+  background: #3498db;
+  color: white;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chat-box {
+  flex: 1;
+  height: 100%;
+  max-height: 65vh; /* 👈 Limits vertical size */
+  overflow-y: auto;
+  padding: 15px;
+  background: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+  transition: all 0.3s ease;
+}
+
+
+.message {
+  max-width: 80%;
+  padding: 10px 15px;
+  border-radius: 18px;
+  font-size: 16px;
+  line-height: 1.4;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.user-msg {
+  align-self: flex-end;
+  background: #d1ecf1;
+  color: #0c5460;
+  border-bottom-right-radius: 0;
+}
+
+.bot-msg {
+  align-self: flex-start;
+  background: #e2e3e5;
+  color: #383d41;
+  border-bottom-left-radius: 0;
+  animation: typing 1s steps(40, end);
+}
+
+.input-area {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  gap: 10px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+}
+
+.button {
+  background: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background: #2980b9;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    height: 100vh;
+    border-radius: 0;
+  }
+}
