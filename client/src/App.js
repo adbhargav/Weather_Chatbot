@@ -14,7 +14,8 @@ function App() {
     setMessages(prev => [...prev, userMsg]);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/chat', {
+      const res = await axios.post(''https://weather-chatbot-5sjq.onrender.com/api/chat'
+', {
         message: input,
       });
 
